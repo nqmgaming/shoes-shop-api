@@ -139,7 +139,7 @@ exports.updateUser = async (req, res, next) => {
                 }
                 await cloudinary.uploader.upload(req.file.path, {
                     folder: 'avatars'
-                }, (error, result) => {
+                }, (error, resultn) => {
                     if (error) {
                         console.log(error);
                     } else {
