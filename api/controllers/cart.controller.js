@@ -1,5 +1,4 @@
 const Cart = require('../models/cart.model');
-const e = require("express");
 
 // Get all carts
 exports.getAllCarts = async (req, res, next) => {
