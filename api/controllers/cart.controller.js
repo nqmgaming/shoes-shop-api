@@ -1,5 +1,5 @@
 const Cart = require('../models/cart.model');
-
+const Product = require("../models/product.model")
 // Get all carts
 exports.getAllCarts = async (req, res, next) => {
     try {
@@ -42,7 +42,7 @@ exports.getCartsByUserId = async (req, res, next) => {
     const userId = req.params.id;
     if (userId) {
         try {
-            const carts = await Cart.find({user: userId});
+            const carts = await Cart.find({user: userId})
             if (!carts) {
                 return res.status(404).json({message: 'Carts not found'});
             } else if (carts.length === 0) {
@@ -91,7 +91,8 @@ exports.createCart = async (req, res, next) => {
 // Update cart by id
 exports.updateCart = async (req, res, next) => {
     const cartId = req.params.id;
-    const itemQuantity = req.body.items.quantity;
+    const itemQuantity = req.body.quantity;
+    console.log(cartId, itemQuantity);
     if (cartId && itemQuantity) {
         try {
             const cart = await Cart.findById(cartId);
