@@ -29,6 +29,24 @@ exports.getProductById = async (req, res, next) => {
     }
 }
 
+// Get products by category
+exports.getProductsByCategoryId = async (req, res, next) => {
+    const categoryId = req.params.categoryId;
+    if (!categoryId) {
+        return res.status(400).json({ message: 'Category ID is required' });
+    }
+
+    try {
+        const products = await Product.find({ category: categoryId }).populate('category').populate('size');
+        if (!products.length) {
+            return res.status(404).json({ message: 'No products found for this category' });
+        }
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 // Search products by name
 exports.searchProductsByName = async (req, res, next) => {
     const productName = req.query.name;

@@ -8,6 +8,7 @@ const mongoose = require('./config/db')
 const userRouter = require('./api/routes/user.route');
 const categoryRouter = require('./api/routes/category.route');
 const productRouter = require('./api/routes/product.route');
+const cartRouter = require('./api/routes/cart.route');
 
 var indexRouter = require('./routes/index');
 
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/categories', categoryRouter);
 app.use('/products', productRouter);
+app.use('/carts', cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
