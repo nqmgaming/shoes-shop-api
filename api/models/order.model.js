@@ -1,5 +1,5 @@
 const {Schema, model, Types} = require('mongoose');
-
+const User = require('./user.model');
 const OrderSchema = new Schema({
     user: {
         type: Types.ObjectId,
