@@ -52,6 +52,13 @@ const OrderSchema = new Schema({
         trim: true,
         default: Date.now,
     },
+    status: {
+        type: String,
+        required: true,
+        trim: true,
+        enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
+        default: 'Pending',
+    }
 }, {
     timestamps: true,
 });
