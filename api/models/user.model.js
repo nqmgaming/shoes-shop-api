@@ -39,7 +39,12 @@ const User = new Schema({
             maxlength: [50, 'Last name must be less than or equal to 50 characters']
         },
         birthDate: {type: 'Date', required: true},
-        address: {type: 'String', required: true},
+        address: {
+            type: 'String', required: true,
+            trim: true,
+            minlength: [10, 'Address must be at least 10 characters'],
+            maxlength: [100, 'Address must be less than or equal to 100 characters']
+        },
         phoneNumber: {
             type: 'String',
             trim: true,
