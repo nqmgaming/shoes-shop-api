@@ -34,7 +34,7 @@ const User = new Schema({
             maxlength: [50, 'Last name must be less than or equal to 50 characters']
         },
         birthDate: {type: 'Date', required: true},
-        address: {type: 'String', required: false},
+        address: {type: 'String', required: true},
         phoneNumber: {
             type: 'String',
             required: false,
