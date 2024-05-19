@@ -9,17 +9,20 @@ const Cart = new Schema({
         quantity: {
             type: 'Number',
             required: true,
+            trim: true,
             min: [1, 'Quantity must be at least 1'],
             max: [100, 'Quantity must be less than or equal to 100']
         },
         price: {
             type: 'Number',
             required: true,
+            trim: true,
             min: [0, 'Price must be at least 0']
         },
         size: {
             type: 'String',
             required: true,
+            trim: true,
             minlength: [1, 'Size must be at least 1 character'],
             maxlength: [50, 'Size must be less than or equal to 50 characters']
         },
