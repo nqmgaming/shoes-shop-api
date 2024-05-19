@@ -113,7 +113,7 @@ exports.deleteOrderById = async (req, res, next) => {
             return res.status(404).json({message: 'Order not found'});
         }
 
-        await Order.findByIdAndRemove(orderId);
+        await Order.findByIdAndDelete(orderId);
 
         res.status(200).json({message: 'Order deleted successfully'});
     } catch (error) {

@@ -3,7 +3,6 @@ require('dotenv').config();
 
 // check if token is valid
 function authenticateToken(req, res, next) {
-    console.log(`process.env.SECRET_KEY: ${process.env.ACCESS_TOKEN_SECRET}`);
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
