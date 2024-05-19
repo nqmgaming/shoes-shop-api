@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const cloudinary = require('../utils/cloudinary');
 const auth = require('../middlewares/auth.middleware');
 const Joi = require('joi');
-
+const fs = require('fs');
 const Users = require('../models/user.model');
 
 
@@ -139,13 +139,23 @@ exports.updateUser = async (req, res, next) => {
                 }
                 await cloudinary.uploader.upload(req.file.path, {
                     folder: 'avatars'
-                }, (error, resultn) => {
+                }, (error, result) => {
                     if (error) {
                         console.log(error);
                     } else {
                         console.log(result.secure_url);
                         user.avatar.public_id = result.public_id;
                         user.avatar.url = result.secure_url;
+
+                        // Delete the file from the local system after it has been uploaded to Cloudinary
+                        fs.unlink(req.file.path, (err) => {
+                            if (err) {
+                                console.error("There was an error deleting the file:", err);
+                            } else {
+                                console.log("File deleted successfully");
+                            }
+                        });
+
                     }
                 });
             }
