@@ -1,11 +1,14 @@
 const {Schema, model, Types} = require('mongoose');
 
 const Category = new Schema({
-        name: { type: 'String', required: true },
-        description: { type: 'String', required: true },
-        numberOfProducts: { type: Types.ObjectId, ref: 'Product', required: true },
-        createdAt: { type: 'Date', required: true },
-        updatedAt: { type: 'Date', required: true },
+            name: {
+                    type: 'String',
+                    required: true,
+                    minlength: [2, 'Name must be at least 2 characters'],
+                    maxlength: [50, 'Name must be less than or equal to 50 characters']
+            },
+            createdAt: { type: 'Date', required: true },
+            updatedAt: { type: 'Date', required: true },
     }, { timestamps: true },
 );
 
