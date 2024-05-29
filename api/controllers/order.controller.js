@@ -39,7 +39,7 @@ exports.getOrdersByUserId = async (req, res, next) => {
     }
 
     try {
-        const orders = await Order.find({ user: userId }).populate('user', 'email');
+        const orders = await Order.find({user: userId}).populate('user', 'email');
         if (!orders.length) {
             return res.status(404).json({message: 'Orders not found for this user'});
         }
@@ -51,7 +51,7 @@ exports.getOrdersByUserId = async (req, res, next) => {
 
 // Create order
 exports.createOrder = async (req, res, next) => {
-    const { user, products, address, phoneNumber, email, total } = req.body;
+    const {user, products, address, phoneNumber, email, total, paymentMethod} = req.body;
 
     if (!user || !products || !address || !phoneNumber || !email || total === undefined) {
         return res.status(400).json({message: 'All fields are required'});
@@ -64,7 +64,8 @@ exports.createOrder = async (req, res, next) => {
             address,
             phoneNumber,
             email,
-            total
+            total,
+            paymentMethod
         });
 
         const savedOrder = await newOrder.save();
@@ -79,7 +80,7 @@ exports.createOrder = async (req, res, next) => {
 // Update order status by id
 exports.updateOrderStatus = async (req, res, next) => {
     const orderId = req.params.id;
-    const { status } = req.body;
+    const {status} = req.body;
 
     if (!orderId || !status) {
         return res.status(400).json({message: 'Order ID and status are required'});

@@ -58,6 +58,12 @@ const OrderSchema = new Schema({
         trim: true,
         enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
         default: 'Pending',
+    },
+    paymentMethod: {
+        type: String,
+        required: true,
+        enum: ["Cash", "CC", "Paypal"],
+        default: "Cash"
     }
 }, {
     timestamps: true,
