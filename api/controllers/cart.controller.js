@@ -5,15 +5,15 @@ exports.getAllCarts = async (req, res, next) => {
     try {
         const carts = await Cart.find();
         if (!carts) {
-            return res.status(404).json({message: 'Carts not found'});
+            return res.status(404).json({ message: 'Carts not found' });
         } else if (carts.length === 0) {
-            return res.status(404).json({message: 'No carts available'});
+            return res.status(404).json({ message: 'No carts available' });
         }
         return res.status(200).json({
             data: carts
         })
     } catch (error) {
-        res.status(500).json({error: error.message});
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -24,16 +24,16 @@ exports.getCartById = async (req, res, next) => {
         try {
             const cart = await Cart.findById(cartId);
             if (!cart) {
-                return res.status(404).json({message: 'Cart not found'});
+                return res.status(404).json({ message: 'Cart not found' });
             }
             return res.status(200).json({
                 data: cart
             })
         } catch (error) {
-            res.status(500).json({error: error.message});
+            res.status(500).json({ error: error.message });
         }
     } else {
-        return res.status(400).json({message: 'Cart ID is required'});
+        return res.status(400).json({ message: 'Cart ID is required' });
     }
 }
 
@@ -42,20 +42,20 @@ exports.getCartsByUserId = async (req, res, next) => {
     const userId = req.params.id;
     if (userId) {
         try {
-            const carts = await Cart.find({user: userId})
+            const carts = await Cart.find({ user: userId })
             if (!carts) {
-                return res.status(404).json({message: 'Carts not found'});
+                return res.status(404).json({ message: 'Carts not found' });
             } else if (carts.length === 0) {
-                return res.status(404).json({message: 'No carts available'});
+                return res.status(404).json({ message: 'No carts available' });
             }
             return res.status(200).json({
                 data: carts
             })
         } catch (error) {
-            res.status(500).json({error: error.message});
+            res.status(500).json({ error: error.message });
         }
     } else {
-        return res.status(400).json({message: 'User ID is required'});
+        return res.status(400).json({ message: 'User ID is required' });
     }
 }
 
@@ -72,7 +72,7 @@ exports.createCart = async (req, res, next) => {
             });
 
             if (existingCart) {
-                return res.status(400).json({error: 'Cart already exists'});
+                return res.status(400).json({ error: 'Cart already exists' });
             }
 
             await cart.save();
@@ -81,10 +81,10 @@ exports.createCart = async (req, res, next) => {
             });
 
         } catch (error) {
-            res.status(500).json({error: error.message});
+            res.status(500).json({ error: error.message });
         }
     } else {
-        return res.status(400).json({message: 'All fields are required'});
+        return res.status(400).json({ message: 'All fields are required' });
     }
 }
 
@@ -102,10 +102,10 @@ exports.updateCart = async (req, res, next) => {
                 data: cart
             });
         } catch (error) {
-            res.status(500).json({error: error.message});
+            res.status(500).json({ error: error.message });
         }
     } else {
-        return res.status(400).json({message: 'Cart ID and item quantity are required'});
+        return res.status(400).json({ message: 'Cart ID and item quantity are required' });
     }
 }
 
@@ -116,15 +116,35 @@ exports.deleteCart = async (req, res, next) => {
         try {
             const cart = await Cart.findByIdAndDelete(cartId);
             if (!cart) {
-                return res.status(404).json({message: 'Cart not found'});
+                return res.status(404).json({ message: 'Cart not found' });
             }
             res.status(204).json({
                 message: 'Cart deleted successfully'
             });
         } catch (error) {
-            res.status(500).json({error: error.message});
+            res.status(500).json({ error: error.message });
         }
     } else {
-        return res.status(400).json({message: 'Cart ID is required'});
+        return res.status(400).json({ message: 'Cart ID is required' });
+    }
+}
+
+// Delete all carts by user ID
+exports.deleteCartsByUserId = async (req, res, next) => {
+    const userId = req.params.userId;
+    if (userId) {
+        try {
+            const carts = await Cart.deleteMany({ user: userId });
+            if (!carts) {
+                return res.status(404).json({ message: 'Carts not found' });
+            }
+            res.status(204).json({
+                message: 'Carts deleted successfully'
+            });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    } else {
+        return res.status(400).json({ message: 'User ID is required' });
     }
 }
