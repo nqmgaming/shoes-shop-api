@@ -10,6 +10,6 @@ router.get('/user/:id', authMiddleware.authenticateToken, cartController.getCart
 router.post('/', authMiddleware.authenticateToken, cartController.createCart);
 router.patch('/:id', authMiddleware.authenticateToken, cartController.updateCart);
 router.delete('/:id', authMiddleware.authenticateToken, cartController.deleteCart);
-router.delete('/user/:id', authMiddleware.authenticateToken, cartController.deleteCartsByUserId);
+router.delete('/user/:userId', authMiddleware.authenticateToken, cartController.deleteCartsByUserId);
 
 module.exports = router;
