@@ -40,7 +40,7 @@ exports.getTotalRevenue = async (req, res, next) => {
             {
                 $group: {
                     _id: null,
-                    total: {$sum: '$totalPrice'}
+                    total: {$sum: '$total'}
                 }
             }
         ]);
