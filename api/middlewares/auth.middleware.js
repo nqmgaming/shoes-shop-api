@@ -11,11 +11,11 @@ function authenticateToken(req, res, next) {
     }
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        console.log("Verify token");
         if (err) {
             console.log("Verify token error");
             return res.sendStatus(403);
         }
+        console.log("Verify token");
         req.user = user;
         next();
     })

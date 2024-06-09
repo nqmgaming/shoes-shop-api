@@ -21,7 +21,7 @@ exports.getOrderById = async (req, res, next) => {
     }
 
     try {
-        const order = await Order.findById(orderId);
+        const order = await Order.findById(orderId).sort({ time: -1 });
         if (!order) {
             return res.status(404).json({ message: 'Order not found' });
         }
